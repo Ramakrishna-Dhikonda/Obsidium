@@ -1,0 +1,9 @@
+{
+  "id": "obsidium",
+  "name": "Obsidium",
+  "version": "0.1.0",
+  "minAppVersion": "1.5.0",
+  "description": "Workspace platform for Obsidian.",
+  "author": "Ram",
+  "isDesktopOnly": false
+}
