@@ -1,34 +1,48 @@
-export const columns = [
+import { ColumnType } from "./types";
+
+export interface Column {
+  id: string;
+  label: string;
+  width: number;
+  type: ColumnType;
+}
+
+export const columns: Column[] = [
   {
     id: "name",
     label: "Name",
-    width: 260
+    width: 260,
+    type: "text"
   },
 
   {
     id: "status",
     label: "Status",
-    width: 180
+    width: 180,
+    type: "select"
   },
 
   {
     id: "priority",
     label: "Priority",
-    width: 160
+    width: 160,
+    type: "priority"
   },
 
   {
     id: "assignee",
     label: "Assignee",
-    width: 200
+    width: 200,
+    type: "text"
   },
 
   {
     id: "dueDate",
     label: "Due Date",
-    width: 180
+    width: 180,
+    type: "date"
   }
-];
+]
 
 export const rows = Array.from(
   { length: 100 },
@@ -38,12 +52,12 @@ export const rows = Array.from(
 
     name: `Task ${index}`,
 
-    status: "In Progress",
+    status: "Todo",
 
-    priority: "High",
+    priority: "Low",
 
     assignee: "Ram",
 
-    dueDate: "Today",
+    dueDate: "2026-05-19",
   })
 );

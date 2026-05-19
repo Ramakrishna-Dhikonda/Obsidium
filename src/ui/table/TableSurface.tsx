@@ -7,6 +7,9 @@ import {
   rows
 } from "./tableData";
 
+import {cellRegistry} from "./cellRegistry";
+
+
 const totalWidth =
   columns.reduce(
     (sum, col) =>
@@ -37,11 +40,26 @@ export default function TableSurface() {
                   <For each={columns}>
                     {(column) => (
                       <div class="table-cell">
-                        {
-                          row [
-                            column.id as keyof typeof row
-                          ]
-                        }
+
+                        {(() => {
+
+                          const Renderer =
+                            cellRegistry[
+                              column.type
+                            ];
+
+                          return (
+                            <Renderer
+                              value={
+                                row[
+                                  column.id as keyof typeof row
+                                ]
+                              }
+                            />
+                          );
+                          
+                        })()}
+
                       </div>
                     )}
                   </For>
