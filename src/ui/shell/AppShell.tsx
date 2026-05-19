@@ -23,6 +23,9 @@ const AppShell: Component = () => {
 
         <Toolbar />
 
+        {/* MAIN BODY */}
+        <WorkspaceViewport />
+
       </main>
     </div>
   );

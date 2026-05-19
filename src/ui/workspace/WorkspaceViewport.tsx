@@ -1,14 +1,10 @@
 import { Component } from "solid-js";
+import TableSurface from "../table/TableSurface";
 
-const WorkspaceViewport:
-  Component = () => {
+export default function WorkspaceViewport() {
   return (
-    <section class="workspace-viewport">
-      <div class="surface-card">
-        Main Workspace
-      </div>
-    </section>
+    <div class="workspace-viewport">
+      <TableSurface />
+    </div>
   );
-};
-
-export default WorkspaceViewport;
+}
