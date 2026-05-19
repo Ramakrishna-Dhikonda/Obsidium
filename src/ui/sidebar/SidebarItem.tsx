@@ -12,6 +12,10 @@ interface SidebarItemProps {
   icon: LucideIcon;
 
   collapsed: boolean;
+
+  active: boolean;
+
+  onClick: () => void;
 }
 
 const SidebarItem:
@@ -19,7 +23,14 @@ const SidebarItem:
     props
   ) => {
   return (
-    <div class="nav-item">
+    <div
+      classList={{
+        "nav-item": true,
+        active: props.active
+      }}
+
+      onClick={props.onClick}
+    >
       <div class="nav-icon">
         <props.icon
           size={18}

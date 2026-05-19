@@ -1,59 +1,49 @@
+// New type for navigation state
 import type {
   LucideIcon
 } from "lucide-solid";
 
 import {
-    LayoutGrid,
-    Table,
-    KanbanSquare,
-    CalendarDays,
-    NotebookPen,
-    Settings
+  LayoutDashboard,
+  Table,
+  Calendar,
+  Settings,
+  TableProperties
 } from "lucide-solid";
 
-export interface NavigationItem {
-    
-    id: string;
-    label: string;
-    icon: LucideIcon;
+import type {
+  WorkspaceView
+} from "../types/view";
 
+export interface NavigationItem {
+  id: WorkspaceView;
+  label: string;
+  icon: LucideIcon;
 }
 
-export const navigationItems:
-    NavigationItem[] = [
-        {
-            id: "dashboard",
-            label: "Dashboard",
-            icon: LayoutGrid
-        },
+export const navigationItems: NavigationItem[] = [
 
-        {
-            id: "tables",
-            label: "Tables",
-            icon: Table
-        },
+  {
+    id: "dashboard",
+    label: "Dashboard",
+    icon: LayoutDashboard
+  },
 
-        {
-            id: "boards",
-            label: "Boards",
-            icon: KanbanSquare
-        },
+  {
+    id: "tables",
+    label: "Tables",
+    icon: TableProperties
+  },
 
-        {
-            id: "calendar",
-            label: "Calendar",
-            icon: CalendarDays
-        },
+  {
+    id: "calendar",
+    label: "Calendar",
+    icon: Calendar
+  },
 
-        {
-            id: "notes",
-            label: "Notes",
-            icon: NotebookPen
-        },
-
-        {
-            id: "settings",
-            label: "Settings",
-            icon: Settings
-        }
-    ];
+  {
+    id: "settings",
+    label: "Settings",
+    icon: Settings
+  }
+];

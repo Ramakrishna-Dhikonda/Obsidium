@@ -9,10 +9,21 @@ import SidebarHeader
 import SidebarNavigation
     from "./SidebarNavigation";
 
+import type {
+  WorkspaceView
+} from "../types/view";
 
-const Sidebar: Component = () => {
-    const [collapsed, setCollapsed] =
-        createSignal(false);
+interface SidebarProps {
+  activeView: WorkspaceView;
+
+  onViewChange: (
+    view: WorkspaceView
+  ) => void;
+}
+
+const Sidebar: Component<SidebarProps> = (props) => {
+
+    const [collapsed, setCollapsed] = createSignal(false);
 
     return (
         <aside class={`sidebar ${collapsed() ? "collapsed" : ""}`} >
@@ -29,8 +40,13 @@ const Sidebar: Component = () => {
             <div class="sidebar-divider" />
 
             <div class="sidebar-content">
-                <SidebarNavigation
-                    collapsed={collapsed()}
+                <SidebarNavigation collapsed={collapsed()}
+                    activeView={
+                        props.activeView
+                    }
+                    onViewChange={
+                        props.onViewChange
+                    }
                 />
             </div>
         </aside>

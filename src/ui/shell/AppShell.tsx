@@ -1,4 +1,13 @@
-import { Component } from "solid-js";
+import {
+  Component,
+  createSignal,
+  Match,
+  Switch
+} from "solid-js";
+
+import type {
+  WorkspaceView
+} from "../types/view";
 
 import Sidebar
   from "../sidebar/Sidebar";
@@ -9,12 +18,24 @@ import Toolbar
 import WorkspaceViewport
   from "../workspace/WorkspaceViewport";
 
+
 const AppShell: Component = () => {
+
+  const [
+    activeView,
+    setActiveView
+  ] = createSignal<WorkspaceView>(
+    "tables"
+  );
+
   return (
     <div class="app-shell">
       {/* SIDEBAR */}
 
-      <Sidebar />
+      <Sidebar
+        activeView={activeView()}
+        onViewChange={setActiveView}
+      />
 
       {/* MAIN SURFACE */}
 
@@ -24,7 +45,47 @@ const AppShell: Component = () => {
         <Toolbar />
 
         {/* MAIN BODY */}
-        <WorkspaceViewport />
+        <Switch>
+
+          <Match
+            when={
+              activeView() === "tables"
+            }
+          >
+            <WorkspaceViewport />
+          </Match>
+
+          <Match
+            when={
+              activeView() === "dashboard"
+            }
+          >
+            <div class="page-placeholder">
+              Dashboard Page
+            </div>
+          </Match>
+
+          <Match
+            when={
+              activeView() === "calendar"
+            }
+          >
+            <div class="page-placeholder">
+              Calendar Page
+            </div>
+          </Match>
+
+          <Match
+            when={
+              activeView() === "settings"
+            }
+          >
+            <div class="page-placeholder">
+              Settings Page
+            </div>
+          </Match>
+
+        </Switch>
 
       </main>
     </div>

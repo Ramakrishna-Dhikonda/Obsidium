@@ -10,8 +10,18 @@ import {
 import SidebarItem
   from "./SidebarItem";
 
+import type {
+  WorkspaceView
+} from "../types/view";
+
 interface Props {
   collapsed: boolean;
+
+  activeView: WorkspaceView;
+
+  onViewChange: (
+    view: WorkspaceView
+  ) => void;
 }
 
 const SidebarNavigation:
@@ -24,9 +34,21 @@ const SidebarNavigation:
         {(item) => (
           <SidebarItem
             label={item.label}
+
             icon={item.icon}
+
             collapsed={
               props.collapsed
+            }
+
+            active={
+              props.activeView === item.id
+            }
+
+            onClick={() =>
+              props.onViewChange(
+                item.id
+              )
             }
           />
         )}
