@@ -13,7 +13,6 @@ export default function WorkspaceViewport() {
     visibleColumns,
     setVisibleColumns
   ] = createSignal(columns.map(column => column.id));
-
   return (
     <div class="workspace-viewport">
       <TableToolbar 

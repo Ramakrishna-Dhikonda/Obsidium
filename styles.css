@@ -30,7 +30,7 @@ body {
 
 body {
     background: #f5f6f8;
-    font-family: Inter, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     overflow: hidden
 }
 
@@ -181,6 +181,12 @@ body {
     padding: 0 15px;
     font-weight: 600;
     display: flex;
+    gap: 20px;
+}
+
+.toolbar-title {
+  font-size: 25px;
+  font-weight: 500;
 }
 
 .content {
@@ -197,11 +203,11 @@ body {
     padding: 24px
 }
 
-.workspace-leaf-content[data-type=obsidium-board-view] .view-header {
+.workspace-leaf-content[data-type="obsidium-board-view"] .view-header {
     display: none
 }
 
-.workspace-leaf-content[data-type=obsidium-board-view] .view-content {
+.workspace-leaf-content[data-type="obsidium-board-view"] .view-content {
     padding-top: 0 !important
 }
 
@@ -549,24 +555,17 @@ body {
 ========================= */
 
 .toolbar-icon-button {
-
   width: 36px;
   height: 36px;
-
+  
   border: none;
-
   border-radius: 10px;
-
-  background: white;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
   cursor: pointer;
-
-  border:
-    1px solid #e5e7eb;
 }
 
 .toolbar-icon-button:hover {
@@ -787,4 +786,30 @@ body {
   color: #111827;
 
   white-space: nowrap;
+}
+
+
+.icon-button {
+
+  width: 32px;
+  height: 32px;
+
+  border: none;
+
+  background: transparent;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+}
+
+.icon-button:hover {
+
+  background:
+    rgba(0,0,0,0.06);
 }

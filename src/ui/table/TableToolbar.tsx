@@ -104,7 +104,7 @@ export default function TableToolbar(
 
             <div class="table-toolbar-left">
                 <div class="toolbar-title">
-                    Tasks
+                    
                 </div>
             </div>
 
