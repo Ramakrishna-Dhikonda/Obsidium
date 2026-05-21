@@ -520,3 +520,271 @@ body {
 
   color: #0f172a;
 }
+
+
+/* =========================
+   TABLE TOOLBAR
+========================= */
+
+.table-toolbar {
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 14px;
+}
+
+.table-toolbar-left,
+.table-toolbar-right {
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+}
+
+/* =========================
+   BUTTON
+========================= */
+
+.toolbar-icon-button {
+
+  width: 36px;
+  height: 36px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  border:
+    1px solid #e5e7eb;
+}
+
+.toolbar-icon-button:hover {
+
+  background:
+    #f8fafc;
+}
+
+/* =========================
+   DROPDOWN
+========================= */
+
+.toolbar-dropdown {
+  position: relative;
+}
+
+.toolbar-menu {
+
+  position: absolute;
+
+  top: 100%;
+  right: 0;
+
+  width: 150px;
+
+  background: white;
+
+  border:
+    1px solid #e5e7eb;
+
+  border-radius: 14px;
+
+  padding: 4px;
+
+  z-index: 100;
+}
+
+/* =========================
+   MENU ITEM
+========================= */
+
+.toolbar-menu-item {
+
+  position: relative;
+
+  height: 28px;
+
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+
+  padding: 0 12px;
+
+  cursor: pointer;
+}
+
+.toolbar-menu-item:hover {
+
+  background:
+    #f3f4f6;
+}
+
+.menu-row {
+
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* =========================
+   SUBMENU
+========================= */
+
+.toolbar-submenu {
+
+  position: absolute;
+
+  top: 50%;
+
+  right: calc(100% - 2px);
+
+  width: 150px;
+
+  background: white;
+
+  border:
+    1px solid #e5e7eb;
+
+  border-radius: 14px;
+
+  padding: 4px;
+
+  
+  opacity: 0;
+
+  visibility: hidden;
+
+  pointer-events: none;
+
+  transform:
+    translateX(4px);
+
+  transition:
+    opacity 0.12s ease,
+    transform 0.12s ease;
+
+  z-index: 200;
+}
+
+/* =========================
+   SUBMENU ITEM
+========================= */
+
+.toolbar-submenu-item {
+
+  width: 100%;
+  height: 28px;
+
+  border-radius: 10px;
+
+  background: transparent;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 12px;
+
+  cursor: pointer;
+}
+
+.toolbar-submenu-item:hover {
+
+  background:
+    #f3f4f6;
+}
+
+
+/* =========================
+   SUBMENU HOVER
+========================= */
+
+.has-submenu:hover .toolbar-submenu {
+
+  opacity: 1;
+
+  visibility: visible;
+
+  pointer-events: auto;
+
+  transform:
+    translateX(0);
+}
+
+/* =========================
+   COLUMN TOGGLE ITEM
+========================= */
+
+.column-toggle-item {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  width: 100%;
+
+  height: 30px;
+
+  padding: 0 10px;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  user-select: none;
+
+  transition:
+    background 0.15s ease;
+}
+
+.column-toggle-item:hover {
+
+  background:
+    #f3f4f6;
+}
+
+/* CHECKBOX */
+
+.column-toggle-item input {
+
+  width: 16px;
+  height: 16px;
+
+  margin: 0;
+
+  cursor: pointer;
+
+  flex-shrink: 0;
+
+
+
+  border-radius: 999px;
+
+  transform: scale(1.05);
+}
+
+/* LABEL */
+
+.column-toggle-item span {
+
+  font-size: 14px;
+
+  color: #111827;
+
+  white-space: nowrap;
+}

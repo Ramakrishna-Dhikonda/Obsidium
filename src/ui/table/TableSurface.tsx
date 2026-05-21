@@ -7,7 +7,7 @@ import {
   rows
 } from "./tableData";
 
-import {cellRegistry} from "./cellRegistry";
+import { cellRegistry } from "./cellRegistry";
 
 
 const totalWidth =
@@ -16,15 +16,31 @@ const totalWidth =
       sum + col.width,
     0
   );
-  
 
-export default function TableSurface() {
+interface Props {
+  visibleColumns: string[];
+}
+
+
+export default function TableSurface(props: Props) {
+
+  const filteredColumns = columns.filter(
+    column => props.visibleColumns.includes(column.id)
+  );
+
   return (
     <div class="table-surface">
       <div class="table-scroll-container">
         <div class="table-grid">
           <div class="table-header">
-            <For each={columns}>
+            <For
+              each={columns.filter(
+                column =>
+                  props.visibleColumns.includes(
+                    column.id
+                  )
+              )}
+            >
               {(column) => (
                 <div class="table-header-cell">
                   {column.label}
@@ -37,7 +53,14 @@ export default function TableSurface() {
             <For each={rows}>
               {(row) => (
                 <div class="table-row">
-                  <For each={columns}>
+                  <For 
+                    each={columns.filter(
+                      column =>
+                        props.visibleColumns.includes(
+                          column.id
+                        )
+                    )}
+                  >
                     {(column) => (
                       <div class="table-cell">
 
@@ -45,19 +68,19 @@ export default function TableSurface() {
 
                           const Renderer =
                             cellRegistry[
-                              column.type
+                            column.type
                             ];
 
                           return (
                             <Renderer
                               value={
                                 row[
-                                  column.id as keyof typeof row
+                                column.id as keyof typeof row
                                 ]
                               }
                             />
                           );
-                          
+
                         })()}
 
                       </div>
