@@ -13,6 +13,10 @@ export interface TableColumn {
 	label: string;
 	type: TableColumnType;
 	width?: number;
+
+    defaultHidden?: boolean;
+
+    sortable?: boolean;
 }
 
 export interface TableRow {
