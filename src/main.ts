@@ -1,62 +1,67 @@
-import {
-  Plugin
-} from "obsidian";
+import { Plugin, WorkspaceLeaf } from "obsidian";
 
-import {
-  VIEW_TYPE_OBSIBOARD
-} from "./obsidian/constants";
+import { OBSIDIUM_VIEW_TYPE } from "./core/constants/view";
+import { ObsidiumView } from "./views/obsidium/ObsidiumView";
 
-import {
-  ObsiBoardView
-} from "./obsidian/ObsiBoardView";
+export default class ObsidiumPlugin extends Plugin {
+	async onload(): Promise<void> {
+		this.registerView(
+			OBSIDIUM_VIEW_TYPE,
+			(leaf: WorkspaceLeaf) => new ObsidiumView(leaf)
+		);
 
-export default class ObsiBoardPlugin
-  extends Plugin {
+		this.addRibbonIcon(
+			"layout-dashboard",
+			"Open Obsidium",
+			async () => {
+				await this.activateView();
+			}
+		);
 
-  async onload() {
-    console.log(
-      "ObsiBoard Loaded"
-    );
+		this.registerStyles();
+	}
 
-    /*
-      Register Workspace View
-    */
+	async onunload(): Promise<void> {
+		this.app.workspace.detachLeavesOfType(
+			OBSIDIUM_VIEW_TYPE
+		);
+	}
 
-    this.registerView(
-      VIEW_TYPE_OBSIBOARD,
+	private async activateView(): Promise<void> {
+		const { workspace } = this.app;
 
-      (leaf) =>
-        new ObsiBoardView(
-          leaf
-        )
-    );
+		const existingLeaves =
+			workspace.getLeavesOfType(
+				OBSIDIUM_VIEW_TYPE
+			);
 
-    /*
-      Ribbon Icon
-    */
+		if (existingLeaves.length > 0) {
+			await workspace.revealLeaf(
+				existingLeaves[0]
+			);
 
-    this.addRibbonIcon(
-      /* RIBBON ICON -> https://lucide.dev/icons/layout-dashboard for more */
-      "layout-dashboard",
-      "Open Obsidium",
-      async () => {
-        const leaf = this.app.workspace.getLeaf(true);
-        await leaf.setViewState({
-          type: VIEW_TYPE_OBSIBOARD,
-          active: true
-        });
-        this.app.workspace.revealLeaf(leaf);
-      }
-    );
-  }
+			return;
+		}
 
-  onunload() {
-    this.app.workspace
-      .getLeavesOfType(
-        VIEW_TYPE_OBSIBOARD
-      )
-      .forEach((leaf) =>
-        leaf.detach()
-      );
-  }
+		const leaf = workspace.getLeaf(true);
+
+		await leaf.setViewState({
+			type: OBSIDIUM_VIEW_TYPE,
+			active: true,
+		});
+
+		await workspace.revealLeaf(leaf);
+	}
+
+	private registerStyles(): void {
+		const style = document.createElement("style");
+
+		style.id = "obsidium-styles";
+
+		style.textContent = require("./styles/obsidium.css");
+
+		document.head.appendChild(style);
+
+		this.register(() => style.remove());
+	}
 }

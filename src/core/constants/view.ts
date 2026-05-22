@@ -1,0 +1,1 @@
+export const OBSIDIUM_VIEW_TYPE = "obsidium-main-view";

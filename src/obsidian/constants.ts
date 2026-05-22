@@ -1,1 +1,0 @@
-export const VIEW_TYPE_OBSIBOARD = "obsidium-board-view";
