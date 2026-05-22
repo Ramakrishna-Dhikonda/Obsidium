@@ -4,6 +4,14 @@ interface TableToolbarProps {
 	onColumnVisibilityClick: (
 		event: MouseEvent
 	) => void;
+
+	onDateFilterClick: () => void;
+
+	showDateFilter: boolean;
+
+	dateFilterLabel: string | null;
+
+	hasActiveDateFilter: boolean;
 }
 
 export class TableToolbar {
@@ -23,7 +31,34 @@ export class TableToolbar {
 		const rightActions = toolbar.createDiv({
 			cls: "obsidium-table-toolbar-section",
 		});
+        if (this.props.showDateFilter) {
+            const dateFilterButton =
+                rightActions.createDiv({
+                    cls: `obsidium-table-date-filter-button ${
+                        this.props.hasActiveDateFilter
+                            ? "is-active"
+                            : ""
+                    }`,
+                });
 
+            setIcon(
+                dateFilterButton,
+                "calendar-days"
+            );
+
+            dateFilterButton.createSpan({
+                text:
+                    this.props.dateFilterLabel ??
+                    "Filter Dates",
+            });
+
+            dateFilterButton.addEventListener(
+                "click",
+                () => {
+                    this.props.onDateFilterClick();
+                }
+            );
+        }
 		this.createIconButton(
 			leftActions,
 			"plus"

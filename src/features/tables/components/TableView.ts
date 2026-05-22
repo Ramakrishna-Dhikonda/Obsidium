@@ -1,3 +1,5 @@
+import { App } from "obsidian";
+
 import {
 	MOCK_TABLE_COLUMNS,
 	MOCK_TABLE_ROWS,
@@ -19,6 +21,14 @@ import { TableSortingState } from "../state/TableSortingState";
 
 import { getSortedRows } from "../utils/getSortedRows";
 
+import { TableDateFilterState } from "../state/TableDateFilterState";
+
+import { getFilteredRows } from "../utils/getFilteredRows";
+
+import { getDateColumns } from "../utils/getDateColumns";
+
+import { TableDateFilterMenu } from "./TableDateFilterMenu";
+
 export class TableView {
 	private visibilityState =
 		new TableColumnVisibilityState();
@@ -26,12 +36,17 @@ export class TableView {
 	private sortingState =
 		new TableSortingState();
 
+	private dateFilterState =
+		new TableDateFilterState();
+
 	private rowRenderer =
 		new TableRowRenderer();
 
 	private rootEl!: HTMLDivElement;
 
 	private tableContentEl!: HTMLDivElement;
+
+	constructor(private app: App) {}
 
 	render(parent: HTMLElement): void {
 		this.rootEl = parent.createDiv({
@@ -49,6 +64,17 @@ export class TableView {
 	}
 
 	private renderToolbar(): void {
+		const dateColumns =
+			getDateColumns(
+				MOCK_TABLE_COLUMNS
+			);
+
+		const currentFilter =
+			this.dateFilterState.getFilter();
+
+		const dateFilterLabel =
+			this.buildDateFilterLabel();
+
 		const toolbar = new TableToolbar({
 			onColumnVisibilityClick: (
 				event
@@ -57,9 +83,72 @@ export class TableView {
 					event
 				);
 			},
+
+			onDateFilterClick: () => {
+				this.openDateFilterMenu();
+			},
+
+			showDateFilter:
+				dateColumns.length > 0,
+
+			dateFilterLabel,
+
+			hasActiveDateFilter:
+				this.dateFilterState.isActive(),
 		});
 
 		toolbar.render(this.rootEl);
+	}
+
+	private buildDateFilterLabel():
+		| string
+		| null {
+		const filter =
+			this.dateFilterState.getFilter();
+
+		if (
+			!filter.startDate ||
+			!filter.endDate
+		) {
+			return null;
+		}
+
+		const formatter =
+			new Intl.DateTimeFormat(
+				"default",
+				{
+					month: "short",
+					day: "numeric",
+					year: "numeric",
+				}
+			);
+
+		return `${formatter.format(
+			new Date(filter.startDate)
+		)} - ${formatter.format(
+			new Date(filter.endDate)
+		)}`;
+	}
+
+	private openDateFilterMenu(): void {
+		const menu =
+			new TableDateFilterMenu({
+				app: this.app,
+
+				dateColumns:
+					getDateColumns(
+						MOCK_TABLE_COLUMNS
+					),
+
+				filterState:
+					this.dateFilterState,
+
+				onApply: () => {
+					this.rerenderEntireTableView();
+				},
+			});
+
+		menu.open();
 	}
 
 	private openColumnVisibilityMenu(
@@ -68,14 +157,22 @@ export class TableView {
 		const menu =
 			new TableColumnVisibilityMenu({
 				columns: MOCK_TABLE_COLUMNS,
+
 				visibilityState:
 					this.visibilityState,
+
 				onVisibilityChange: () => {
 					this.rerenderTable();
 				},
 			});
 
 		menu.render(event);
+	}
+
+	private rerenderEntireTableView(): void {
+		this.rootEl.empty();
+
+		this.render(this.rootEl);
 	}
 
 	private rerenderTable(): void {
@@ -91,9 +188,15 @@ export class TableView {
 				this.visibilityState
 			);
 
+		const filteredRows =
+			getFilteredRows(
+				MOCK_TABLE_ROWS,
+				this.dateFilterState.getFilter()
+			);
+
 		const sortedRows =
 			getSortedRows(
-				MOCK_TABLE_ROWS,
+				filteredRows,
 				visibleColumns,
 				this.sortingState.getState()
 			);
@@ -112,6 +215,7 @@ export class TableView {
 			new TableHeaderRenderer({
 				sortState:
 					this.sortingState.getState(),
+
 				onSortChange: (
 					columnId
 				) => {

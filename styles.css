@@ -270,3 +270,31 @@
 	align-items: center;
 	color: var(--text-muted);
 }
+
+
+/* Date filter */
+.obsidium-table-date-filter-button {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	padding: 6px 10px;
+	border-radius: var(--radius-s);
+	border: 1px solid
+		var(--background-modifier-border);
+	cursor: pointer;
+	color: var(--text-muted);
+	background-color: var(--background-secondary);
+}
+
+.obsidium-table-date-filter-button:hover {
+	background-color: var(--background-modifier-hover);
+	color: var(--text-normal);
+}
+
+.obsidium-table-date-filter-button.is-active {
+	color: var(--text-normal);
+	border-color: var(--interactive-accent);
+	background-color: var(
+		--background-modifier-hover
+	);
+}

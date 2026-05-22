@@ -230,7 +230,7 @@ export class ObsidiumView extends ItemView {
 		}
 	}
 
-    private tableView = new TableView();
+    private tableView = new TableView(this.app);
 
     private renderTablesPage(): void {
         this.tableView.render(
