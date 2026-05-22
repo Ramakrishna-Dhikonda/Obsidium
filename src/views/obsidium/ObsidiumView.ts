@@ -8,6 +8,8 @@ import { OBSIDIUM_VIEW_TYPE } from "../../core/constants/view";
 
 import { OBSIDIUM_NAV_ITEMS } from "./types/navigation";
 
+import { TableView } from "../../features/tables/components/TableView";
+
 import {
 	ObsidiumPage,
 	SidebarNavItem,
@@ -228,12 +230,13 @@ export class ObsidiumView extends ItemView {
 		}
 	}
 
-	private renderTablesPage(): void {
-		this.renderPage(
-			"Tables Page",
-			"Future database and table systems will render here."
-		);
-	}
+    private tableView = new TableView();
+
+    private renderTablesPage(): void {
+        this.tableView.render(
+            this.workspaceContentEl
+        );
+    }
 
 	private renderBoardsPage(): void {
 		this.renderPage(
