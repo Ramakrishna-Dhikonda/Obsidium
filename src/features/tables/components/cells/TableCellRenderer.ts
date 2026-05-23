@@ -44,11 +44,21 @@ export class TableCellRenderer {
 	): void {
 		const checkbox = parent.createEl("input", {
 			type: "checkbox",
+			cls: "obsidium-table-checkbox",
 		});
 
 		checkbox.checked = Boolean(value);
 
-		checkbox.disabled = true;
+		/**
+		 * Prevent row-level interactions
+		 * from triggering when checkbox is clicked
+		 */
+		checkbox.addEventListener(
+			"click",
+			(event) => {
+				event.stopPropagation();
+			}
+		);
 	}
 
 	private renderTags(
