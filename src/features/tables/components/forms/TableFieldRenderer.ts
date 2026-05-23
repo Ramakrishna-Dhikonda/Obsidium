@@ -94,6 +94,7 @@ export class TableFieldRenderer {
 		value: unknown
 	): void {
 		new Setting(parent)
+            .setClass("obsidium-compact-setting")
 			.setName(column.label)
 			.addText((text) => {
 				text.setValue(
@@ -113,7 +114,7 @@ export class TableFieldRenderer {
 		column: TableColumn,
 		value: unknown
 	): void {
-		new Setting(parent)
+		new Setting(parent).setClass("obsidium-compact-setting")
 			.setName(column.label)
 			.addText((text) => {
 				text.inputEl.type = "number";
@@ -135,7 +136,7 @@ export class TableFieldRenderer {
 		column: TableColumn,
 		value: unknown
 	): void {
-		new Setting(parent)
+		new Setting(parent).setClass("obsidium-compact-setting")
 			.setName(column.label)
 			.addText((text) => {
 				text.inputEl.type = "date";
@@ -157,7 +158,7 @@ export class TableFieldRenderer {
 		column: TableColumn,
 		value: unknown
 	): void {
-		new Setting(parent)
+		new Setting(parent).setClass("obsidium-compact-setting")
 			.setName(column.label)
 			.addToggle((toggle) => {
 				toggle.setValue(
@@ -177,7 +178,7 @@ export class TableFieldRenderer {
 		column: TableColumn,
 		value: unknown
 	): void {
-		new Setting(parent)
+		new Setting(parent).setClass("obsidium-compact-setting")
 			.setName(column.label)
 			.addDropdown(
 				(dropdown) => {
@@ -208,7 +209,7 @@ export class TableFieldRenderer {
 		column: TableColumn,
 		value: unknown
 	): void {
-		new Setting(parent)
+		new Setting(parent).setClass("obsidium-compact-setting")
 			.setName(column.label)
 			.addDropdown(
 				(dropdown) => {
@@ -239,7 +240,7 @@ export class TableFieldRenderer {
 		column: TableColumn,
 		value: unknown
 	): void {
-		new Setting(parent)
+		new Setting(parent).setClass("obsidium-compact-setting")
 			.setName(column.label)
 			.setDesc(
 				"Comma separated tags"

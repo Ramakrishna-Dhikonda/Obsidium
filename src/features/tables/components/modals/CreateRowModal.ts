@@ -40,41 +40,96 @@ export class CreateRowModal extends Modal {
 			);
 	}
 
-	onOpen(): void {
-		const { contentEl } = this;
+    onOpen(): void {
+        const { contentEl } = this;
 
-		contentEl.empty();
+        contentEl.empty();
 
-		contentEl.createEl("h2", {
-			text: "Create Row",
-		});
+        contentEl.addClass(
+            "obsidium-create-row-modal"
+        );
 
-		for (const column of this
-			.props.columns) {
-			const renderer =
-				new TableFieldRenderer({
-					column,
+        /**
+         * Header
+         */
+        const headerEl =
+            contentEl.createDiv({
+                cls: "obsidium-modal-header",
+            });
 
-					values: this.values,
+        headerEl.createEl("h2", {
+            text: "Create Row",
+        });
 
-					parent: contentEl,
-				});
+        headerEl.createEl("p", {
+            text: "Add a new record to the table",
+            cls: "obsidium-modal-subtitle",
+        });
 
-			renderer.render();
-		}
+        /**
+         * Scrollable body
+         */
+        const bodyEl =
+            contentEl.createDiv({
+                cls: "obsidium-modal-body",
+            });
 
-		new Setting(contentEl)
-			.addButton((button) => {
-				button
-					.setButtonText(
-						"Create"
-					)
-					.setCta()
-					.onClick(() => {
-						this.handleCreate();
-					});
-			});
-	}
+        const formGrid =
+            bodyEl.createDiv({
+                cls: "obsidium-form-grid",
+            });
+
+        for (const column of this
+            .props.columns) {
+            const fieldWrapper =
+                formGrid.createDiv({
+                    cls: "obsidium-form-field",
+                });
+
+            const renderer =
+                new TableFieldRenderer({
+                    column,
+
+                    values: this.values,
+
+                    parent: fieldWrapper,
+                });
+
+            renderer.render();
+        }
+
+        /**
+         * Sticky footer
+         */
+        const footerEl =
+            contentEl.createDiv({
+                cls: "obsidium-modal-footer",
+            });
+
+        new Setting(footerEl)
+            .setClass(
+                "obsidium-modal-actions"
+            )
+            .addButton((button) => {
+                button
+                    .setButtonText(
+                        "Cancel"
+                    )
+                    .onClick(() => {
+                        this.close();
+                    });
+            })
+            .addButton((button) => {
+                button
+                    .setButtonText(
+                        "Create"
+                    )
+                    .setCta()
+                    .onClick(() => {
+                        this.handleCreate();
+                    });
+            });
+    }
 
 	onClose(): void {
 		this.contentEl.empty();
