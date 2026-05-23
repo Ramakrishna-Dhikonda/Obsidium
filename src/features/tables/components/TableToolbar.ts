@@ -61,7 +61,7 @@ export class TableToolbar {
                 }
             );
         }
-		this.createIconButton(
+		/* this.createIconButton(
 			leftActions,
 			"plus",
 			() => {
@@ -77,7 +77,7 @@ export class TableToolbar {
 		this.createIconButton(
 			leftActions,
 			"arrow-up-down"
-		);
+		); */
 
 		this.createIconButton(
 			rightActions,
@@ -87,12 +87,7 @@ export class TableToolbar {
 
 		this.createIconButton(
 			rightActions,
-			"search"
-		);
-
-		this.createIconButton(
-			rightActions,
-			"settings-2"
+			"sliders-horizontal"
 		);
 	}
 

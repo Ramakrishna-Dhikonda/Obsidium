@@ -137,10 +137,12 @@
 }
 
 .obsidium-table-toolbar {
+	/* remove below width beofore enabling 2 side toolbar buttons */
+	width: fit-content;
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
-	padding: 8px 12px;
+	justify-content: end;
+	padding: 4px 12px;
 	border: 1px solid var(--background-modifier-border);
 	border-radius: var(--radius-l);
 	background-color: var(--background-secondary);
@@ -287,7 +289,7 @@
 	display: flex;
 	align-items: center;
 	gap: 6px;
-	padding: 6px 10px;
+	padding: 4px 10px;
 	border-radius: var(--radius-s);
 	border: 1px solid
 		var(--background-modifier-border);
