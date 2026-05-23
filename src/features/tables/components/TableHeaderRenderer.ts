@@ -19,12 +19,15 @@ export class TableHeaderRenderer {
 
 	render(
 		parent: HTMLElement,
-		columns: TableColumn[]
+		columns: TableColumn[],
+		gridTemplate: string
 	): void {
 		const header =
 			parent.createDiv({
 				cls: "obsidium-table-header",
 			});
+
+		header.style.gridTemplateColumns = gridTemplate;
 
 		for (const column of columns) {
 			const isSortable =
@@ -42,12 +45,6 @@ export class TableHeaderRenderer {
 							: ""
 					}`,
 				});
-
-			if (column.width) {
-				headerCell.style.width = `${column.width}px`;
-
-				headerCell.style.minWidth = `${column.width}px`;
-			}
 
 			const labelWrapper =
 				headerCell.createDiv({

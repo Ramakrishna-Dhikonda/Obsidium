@@ -165,25 +165,30 @@
 }
 
 .obsidium-table {
-	min-width: max-content;
 	display: flex;
 	flex-direction: column;
+	width: 100%;
+	min-width: max-content;
 }
 
 .obsidium-table-header {
+	display: grid;
 	position: sticky;
 	top: 0;
 	z-index: 10;
-	display: flex;
 	background-color: var(--background-secondary);
-	border-bottom: 1px solid var(--background-modifier-border);
+	border-bottom: 1px solid
+		var(--background-modifier-border);
+	width: 100%;
+	min-width: max-content;
 }
 
 .obsidium-table-header-cell {
-	padding: 8px 12px;
+	padding: 10px;
 	font-weight: var(--font-semibold);
-	border-right: 1px solid var(--background-modifier-border);
-	flex-shrink: 0;
+	border-right: 1px solid
+		var(--background-modifier-border);
+	overflow: hidden;
 }
 
 .obsidium-table-body {
@@ -192,8 +197,11 @@
 }
 
 .obsidium-table-row {
-	display: flex;
-	border-bottom: 1px solid var(--background-modifier-border);
+	display: grid;
+	width: 100%;
+	min-width: max-content;
+	border-bottom: 1px solid
+		var(--background-modifier-border);
 }
 
 .obsidium-table-row:hover {
@@ -201,8 +209,10 @@
 }
 
 .obsidium-table-cell-wrapper {
-	border-right: 1px solid var(--background-modifier-border);
-	flex-shrink: 0;
+	border-right: 1px solid
+		var(--background-modifier-border);
+	overflow: hidden;
+	min-width: 0;
 }
 
 .obsidium-table-cell {

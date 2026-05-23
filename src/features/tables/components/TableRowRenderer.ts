@@ -12,22 +12,20 @@ export class TableRowRenderer {
 	render(
 		parent: HTMLElement,
 		row: TableRow,
-		columns: TableColumn[]
+		columns: TableColumn[],
+		gridTemplate: string
 	): void {
 		const rowEl = parent.createDiv({
 			cls: "obsidium-table-row",
 		});
+
+		rowEl.style.gridTemplateColumns = gridTemplate;
 
 		for (const column of columns) {
 			const cellWrapper =
 				rowEl.createDiv({
 					cls: "obsidium-table-cell-wrapper",
 				});
-
-			if (column.width) {
-				cellWrapper.style.width = `${column.width}px`;
-				cellWrapper.style.minWidth = `${column.width}px`;
-			}
 
 			this.cellRenderer.render(
 				cellWrapper,

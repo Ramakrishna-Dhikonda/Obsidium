@@ -29,6 +29,8 @@ import { getDateColumns } from "../utils/getDateColumns";
 
 import { TableDateFilterMenu } from "./TableDateFilterMenu";
 
+import { TableColumn } from "../types/table";
+
 export class TableView {
 	private visibilityState =
 		new TableColumnVisibilityState();
@@ -188,6 +190,11 @@ export class TableView {
 				this.visibilityState
 			);
 
+		const gridTemplate =
+			this.buildGridTemplate(
+				visibleColumns
+			);
+
 		const filteredRows =
 			getFilteredRows(
 				MOCK_TABLE_ROWS,
@@ -229,7 +236,8 @@ export class TableView {
 
 		headerRenderer.render(
 			table,
-			visibleColumns
+			visibleColumns,
+			gridTemplate
 		);
 
 		const body = table.createDiv({
@@ -240,8 +248,38 @@ export class TableView {
 			this.rowRenderer.render(
 				body,
 				row,
-				visibleColumns
+				visibleColumns,
+				gridTemplate
 			);
 		}
+	}
+
+	private buildGridTemplate(
+		visibleColumns: TableColumn[]
+	): string {
+		return visibleColumns
+			.map((column) => {
+				/**
+				 * Base minimum width
+				 * prevents unusably tiny columns
+				 */
+				const minWidth = 140;
+
+				/**
+				 * Larger columns receive
+				 * slightly larger flex ratios
+				 */
+				const flexRatio = column.width
+					? Math.max(
+							1,
+							Math.round(
+								column.width / 140
+							)
+					)
+					: 1;
+
+				return `minmax(${minWidth}px, ${flexRatio}fr)`;
+			})
+			.join(" ");
 	}
 }
