@@ -47,13 +47,23 @@ export class TableFieldRenderer {
 				);
 				break;
 
-			case "priority":
-				this.renderPriorityDropdown(
-					parent,
-					column,
-					value
-				);
-				break;
+			case "select":
+				if (column.variant === "priority") {
+                    this.renderPriorityDropdown(
+                        parent,
+                        column,
+                        value
+                    );
+                    return;
+                }
+
+                this.renderTextInput(
+                    parent,
+                    column,
+                    value
+                );
+
+                break;
 
 			case "date":
 				this.renderDateInput(

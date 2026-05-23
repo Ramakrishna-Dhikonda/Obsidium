@@ -411,7 +411,7 @@
 .obsidium-compact-setting textarea,
 .obsidium-compact-setting select {
 	min-height: 22px;
-	padding: 4px 8px;
+	padding: 4px 40px 4px 10px;
 	font-size: var(--font-ui-small);
 }
 

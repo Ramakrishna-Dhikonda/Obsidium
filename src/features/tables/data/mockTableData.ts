@@ -16,6 +16,7 @@ export const MOCK_TABLE_COLUMNS: TableColumn[] = [
 		id: "priority",
 		label: "Priority",
 		type: "select",
+		variant: "priority",
 		width: 140,
         defaultHidden: true,
         sortable: true,

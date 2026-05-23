@@ -27,10 +27,11 @@ export function createDefaultRowValues(
 					TABLE_STATUS_OPTIONS[0];
 				break;
 
-			case "priority":
-				values[column.id] =
-					"Medium";
-				break;
+			case "select":
+				if (column.variant === "priority") {
+                    values[column.id] = "Medium";
+                }
+                break;
 
 			case "checkbox":
 				values[column.id] = false;
