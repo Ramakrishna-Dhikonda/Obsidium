@@ -1,6 +1,8 @@
 import { setIcon } from "obsidian";
 
 interface TableToolbarProps {
+	onCreateRowClick: () => void;
+
 	onColumnVisibilityClick: (
 		event: MouseEvent
 	) => void;
@@ -61,7 +63,10 @@ export class TableToolbar {
         }
 		this.createIconButton(
 			leftActions,
-			"plus"
+			"plus",
+			() => {
+				this.props.onCreateRowClick();
+			}
 		);
 
 		this.createIconButton(

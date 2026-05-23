@@ -31,6 +31,10 @@ import { TableDateFilterMenu } from "./TableDateFilterMenu";
 
 import { TableColumn } from "../types/table";
 
+import { TableRow } from "../types/table";
+
+import { CreateRowModal } from "./modals/CreateRowModal";
+
 export class TableView {
 	private visibilityState =
 		new TableColumnVisibilityState();
@@ -48,6 +52,11 @@ export class TableView {
 
 	private tableContentEl!: HTMLDivElement;
 
+	private rows: TableRow[] = [
+		...MOCK_TABLE_ROWS,
+	];
+
+	
 	constructor(private app: App) {}
 
 	render(parent: HTMLElement): void {
@@ -86,6 +95,9 @@ export class TableView {
 				);
 			},
 
+			onCreateRowClick: () => {
+				this.openCreateRowModal();
+			},
 			onDateFilterClick: () => {
 				this.openDateFilterMenu();
 			},
@@ -100,6 +112,18 @@ export class TableView {
 		});
 
 		toolbar.render(this.rootEl);
+	}
+
+	private openCreateRowModal(): void {
+		new CreateRowModal(this.app, {
+			columns: MOCK_TABLE_COLUMNS,
+
+			onCreate: (row) => {
+				this.rows.push(row);
+
+				this.rerenderTable();
+			},
+		}).open();
 	}
 
 	private buildDateFilterLabel():
@@ -197,7 +221,7 @@ export class TableView {
 
 		const filteredRows =
 			getFilteredRows(
-				MOCK_TABLE_ROWS,
+				this.rows,
 				this.dateFilterState.getFilter()
 			);
 
